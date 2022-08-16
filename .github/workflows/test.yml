@@ -1,0 +1,30 @@
+name: 'build-test'
+on: # rebuild any PRs and master branch changes
+  pull_request:
+  push:
+    branches:
+      - master
+      - 'releases/*'
+
+jobs:
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: yarn install
+      - run: yarn all
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: mkdir release-assets
+      - run: echo hello > release-assets/world.txt
+      - uses: ./
+        with:
+          source-dir: release-assets
+          destination-dir: v1.0.0
+          bucket: ${{ secrets.AWS_BUCKET }}
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          content-disposition: attachment
+          acl: authenticated-read

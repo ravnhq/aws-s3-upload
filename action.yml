@@ -1,0 +1,30 @@
+name: 'AWS S3 Upload'
+description: 'Upload files to S3'
+author: 'RavnHQ'
+inputs:
+  source-dir:
+    required: true
+    description: 'Directory where files should be uploaded from'
+  destination-dir:
+    required: false
+    description: 'Directory path where files should be uploaded to relative to the bucket'
+  bucket:
+    required: true
+    description: 'Name of S3 bucket'
+  access-key-id:
+    required: true
+    description: 'AWS Access Key Id'
+  secret-access-key:
+    required: true
+    description: 'AWS Secret Access Key'
+  content-disposition:
+    required: false
+    description: 'Content Disposition header value to set'
+    default: '/'
+  acl:
+    required: false
+    description: 'The canned ACL to apply to the object'
+    default: 'public-read'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
