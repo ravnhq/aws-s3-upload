@@ -10,13 +10,13 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
       - run: yarn install
       - run: yarn all
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.1.0
       - run: mkdir release-assets
       - run: echo hello > release-assets/world.txt
       - uses: ./
